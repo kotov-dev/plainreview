@@ -1,2 +1,2 @@
-plainreview
+Simple application for code review
 ===========

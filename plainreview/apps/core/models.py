@@ -13,6 +13,7 @@ class Project(models.Model):
 class ReviewRequest(models.Model):
     project = models.ForeignKey(Project)
     description = models.TextField()
+    diff = models.TextField()
 
 
 class Reviewer(models.Model):
