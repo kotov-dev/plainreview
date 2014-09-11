@@ -7,8 +7,9 @@ from .models import Project, Reviewer, ReviewRequest
 
 
 def home(request, project=None):
-    # view all review requests
-    pass
+    requests = ReviewRequest.objects.all()
+
+    return render(request, 'home.html', locals())
 
 
 def review(request, review_id):

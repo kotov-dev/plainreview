@@ -1,0 +1,7 @@
+{% extends "layout.html" %}
+{% block content %}
+{% for r in requests %}
+    <pre>{{ r.diff }}</pre>
+{% endfor %}
+
+{% endblock %}
