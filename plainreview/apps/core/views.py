@@ -7,7 +7,7 @@ from .models import Project, Reviewer, ReviewRequest
 
 
 def home(request, project=None):
-    requests = ReviewRequest.objects.all()
+    requests = ReviewRequest.objects.order_by('created_at').all()
 
     return render(request, 'home.html', locals())
 

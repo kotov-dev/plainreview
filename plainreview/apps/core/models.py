@@ -14,6 +14,7 @@ class ReviewRequest(models.Model):
     project = models.ForeignKey(Project)
     description = models.TextField()
     diff = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
 class Reviewer(models.Model):
