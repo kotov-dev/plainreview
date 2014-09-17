@@ -1,3 +1,5 @@
+#encoding: utf-8
+
 from django.shortcuts import render
 from django.http import HttpResponse
 
@@ -6,11 +8,12 @@ from django.contrib.auth.models import User
 from .models import Project, Reviewer, ReviewRequest
 
 
+
 def home(request, project=None):
-    requests = ReviewRequest.objects.order_by('created_at').all()
+    pass
+    requests = ReviewRequest.objects.order_by('-created_at').all()
     if project is not None:
         requests = requests.filter(project_id=project)
-
     return render(request, 'home.html', locals())
 
 

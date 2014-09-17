@@ -1,7 +1,52 @@
 {% extends "layout.html" %}
 {% block content %}
-{% for r in requests %}
-    <pre>{{ r.diff }}</pre>
+<style>
+.blob_code {
+    font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    vertical-align: top;
+    white-space: pre;
+    overflow: visible;
+}
+.table-borderless tbody>tr>td {
+    border-top: none;
+    padding: 2px;
+    font-size: 12px;
+}
+.chunks {
+    color: #777777;
+}
+
+.blob-num:before {
+    content: attr(data-line-number);
+}
+
+</style>
+{% for req in requests %}
+    <table class="table table-condensed table-borderless" style="margin-bottom: 60px">
+        {% for _, diff_content in req.parsed_diff.items %}
+            <thead>
+                <tr><th colspan="2">{{ diff_content.filename }}</th></tr>
+            </thead>
+
+            <tbody>
+
+                {% for name, data in diff_content.chunks.iteritems %}
+                    <tr>
+                        <td></td>
+                        <td class="blob_code chunks">{{ name }}</td>
+                    </tr>
+
+                    {% for d in data.content %}
+
+                        <tr class="{% if "+" in d.line|slice:"1" %}success{% elif "-" in d.line|slice:"1" %}danger{% endif %}">
+                            <td style="width:70px;padding-right:5px;padding-left:5px;border-right: 1px #ccc solid" data-line-number="{{ d.number }}" class="blob-num"></td>
+                            <td class="blob_code">{{ d.line }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        {% endfor %}
+    </table>
 {% endfor %}
 
 {% endblock %}

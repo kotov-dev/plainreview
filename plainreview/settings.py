@@ -85,3 +85,9 @@ STATIC_URL = '/static/'
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
+
+
+try:
+    import local_settings
+except ImportError:
+    pass

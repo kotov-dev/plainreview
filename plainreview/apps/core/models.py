@@ -1,6 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+import diff_utils
+
+
+
 
 class Project(models.Model):
     url = models.CharField(unique=True, max_length=20)
@@ -15,6 +19,11 @@ class ReviewRequest(models.Model):
     description = models.TextField()
     diff = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def parsed_diff(self):
+        # reload needed to clean parser data
+        reload(diff_utils)
+        return diff_utils.DiffParser(self.diff).parse()
 
 
 class Reviewer(models.Model):
